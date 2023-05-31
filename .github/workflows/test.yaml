@@ -13,10 +13,13 @@ jobs:
   hello:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: start test
-        run: echo "Start Test"
-        shell: bash
+      - names: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::678790208956:instance-profile/cyrus_batch
+          aws-region: us-west-2
+      - names: Checkout Repo
+        uses: actions/checkout@v3
 
   end:
     runs-on: ubuntu-latest
