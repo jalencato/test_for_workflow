@@ -25,7 +25,7 @@ parser.add_argument('--region', help='Default region when creating new connectio
                     default='us-east-1')
 parser.add_argument('--name', help='name of the job', type=str, default='dummy')
 parser.add_argument('--job-type', help='type of job to submit.', type=str,
-                    choices=job_type_info.keys(), default='CI-CPU')
+                    choices=job_type_info.keys(), default='Start_test')
 parser.add_argument('--command', help='command to run', type=str,
                     default='git rev-parse HEAD | tee stdout.log')
 parser.add_argument('--wait', help='block wait until the job completes. '
