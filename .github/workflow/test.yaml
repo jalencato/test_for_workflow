@@ -21,7 +21,6 @@ jobs:
   end:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: end test
         run: echo "End Test"
         shell: bash
