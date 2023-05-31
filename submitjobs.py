@@ -12,7 +12,7 @@ from botocore.config import Config
 
 job_type_info = {
     "Start_test": {
-        'job_definition': 'cyrus_pipeline',
+        'job_definition': 'cyrus_test_workflow',
         'job_queue': 'cyrus_graphstorm_pipeline',
     }
 }
