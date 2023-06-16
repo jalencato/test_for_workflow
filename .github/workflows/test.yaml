@@ -32,12 +32,6 @@ jobs:
         python3 -m pip install pytest
         pip install boto3
 
-    - name: Submit Job
-      shell: bash
-      run: |
-        echo "Start submitting job - Push"
-        python3 ./submitjobs.py --wait
-
   end:
     runs-on: ubuntu-latest
     steps:
