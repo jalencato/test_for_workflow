@@ -20,6 +20,8 @@ job_type_info = {
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
+parser.add_argument('--test_merge', help='profile name of aws account.', type=str,
+                    default=None)
 parser.add_argument('--profile', help='profile name of aws account.', type=str,
                     default=None)
 parser.add_argument('--region', help='Default region when creating new connections', type=str,
