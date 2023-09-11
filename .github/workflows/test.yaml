@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   hello:
-    if: ${{ github.event.label.name != 'draft' && contains(github.event.pull_request.labels.*.name, 'ready')}}
+    if: ${{ github.event_name == 'push' || (github.event.label.name != 'draft' && github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ready'))}}
     runs-on: ubuntu-latest
     steps:
 
@@ -29,13 +29,15 @@ jobs:
     - name: Hello
       shell: bash
       run: |
-        echo ${{contains(github.event.labels.*.name, 'ready')}}
+        echo ${{contains(github.event.pull_request.labels.*.name, 'ready')}}
         echo "Start submitting job - Push"
 
   end:
     runs-on: ubuntu-latest
     steps:
       - name: end test
-        run: echo "End Test"
+        run: |
+          echo "End Test"
+          echo ${{(github.event.label.name != 'draft' && github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ready'))}}
         shell: bash
 
