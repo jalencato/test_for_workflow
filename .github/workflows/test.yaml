@@ -15,15 +15,9 @@ permissions:
 
 jobs:
   hello:
+    if: ${{ github.event.label.name != 'draft' && contains(github.event.pull_request.labels.*.name, 'ready')}}
     runs-on: ubuntu-latest
     steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: arn:aws:iam::678790208956:role/cyrus_batch
-        aws-region: us-west-2
-    - name: Checkout Repo
-      uses: actions/checkout@v3
 
     - name: Install Dependencies
       shell: bash
@@ -32,11 +26,10 @@ jobs:
         python3 -m pip install pytest
         pip install boto3
 
-    - name: Submit Job
+    - name: Hello
       shell: bash
       run: |
         echo "Start submitting job - Push"
-        python3 ./submitjobs.py --wait
 
   end:
     runs-on: ubuntu-latest
