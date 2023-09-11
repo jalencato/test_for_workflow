@@ -5,8 +5,7 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+  pull_request_target:
   workflow_dispatch:
 
 permissions:
@@ -15,7 +14,10 @@ permissions:
 
 jobs:
   hello:
-    if: ${{ github.event_name == 'push' || (github.event.label.name != 'draft' && github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ready'))}}
+    if: ${{ github.event_name == 'push' || 
+      (github.event.label.name != 'draft' &&
+      github.event_name == 'pull_request_target' &&
+      contains(github.event.pull_request.labels.*.name, 'ready'))}}
     runs-on: ubuntu-latest
     steps:
 
@@ -38,6 +40,7 @@ jobs:
       - name: end test
         run: |
           echo "End Test"
+          echo ${{github.event.label.name}}
           echo ${{(github.event.label.name != 'draft' && github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ready'))}}
         shell: bash
 
