@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   hello:
-    if: ${{ github.event.label.name != 'draft' && contains(github.event.pull_request.labels.*.name, 'ready')}}
+    if: ${{ github.event_name == "push" || (github.event.label.name != 'draft' && github.event_name == "pull_request" && contains(github.event.pull_request.labels.*.name, 'ready'))}}
     runs-on: ubuntu-latest
     steps:
 
