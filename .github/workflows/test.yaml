@@ -29,7 +29,7 @@ jobs:
     - name: Hello
       shell: bash
       run: |
-        echo ${{contains(github.event.labels.*.name, 'ready')}}
+        echo ${{contains(github.event.pull_request.labels.*.name, 'ready')}}
         echo "Start submitting job - Push"
 
   end:
