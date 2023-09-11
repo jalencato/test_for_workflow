@@ -33,6 +33,7 @@ jobs:
       run: |
         echo ${{contains(github.event.pull_request.labels.*.name, 'ready')}}
         echo "Start submitting job - Push"
+        echo "Test target"
 
   end:
     runs-on: ubuntu-latest
