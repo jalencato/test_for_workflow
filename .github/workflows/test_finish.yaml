@@ -1,0 +1,46 @@
+name: finish
+on:
+  workflow_run:
+    workflows: ["test"]
+    types:
+      - completed
+  push:
+    branches:
+      - main
+  pull_request:
+  pull_request_target:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  hello:
+    if: ${{ github.event_name == 'push' || 
+      (github.event.label.name != 'draft' &&
+      github.event_name == 'pull_request_target' &&
+      contains(github.event.pull_request.labels.*.name, 'ready'))}}
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Install Dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        python3 -m pip install pytest
+        pip install boto3
+    - name: Hello
+      shell: bash
+      run: |
+        echo ${{contains(github.event.pull_request.labels.*.name, 'ready')}}
+        echo "Start submitting job - Push"
+  end:
+    runs-on: ubuntu-latest
+    steps:
+      - name: end test
+        run: |
+          echo "End Test"
+          echo ${{github.event.label.name}}
+          echo ${{(github.event.label.name != 'draft' && github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ready'))}}
+        shell: bash
