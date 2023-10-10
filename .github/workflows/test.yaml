@@ -33,7 +33,8 @@ jobs:
     - name: Hello
       shell: bash
       run: |
-        echo ${{ github.workflow }}-${{ github.event.pull_request_target.number }}
+        echo ${{ github.workflow }}
+        echo ${{ github.event.pull_request_target.number }}
         sleep 20
         echo ${{contains(github.event.pull_request.labels.*.name, 'ready')}}
         echo "Start submitting job - Push"
