@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
   pull_request_target:
     types: [ labeled, opened, reopened, synchronize, ready_for_review ]
   workflow_dispatch:
@@ -17,9 +16,10 @@ jobs:
   hello:
     if: ${{ github.event_name == 'push' || 
       (github.event.label.name != 'draft' &&
-      github.event_name == 'pull_request_target' &&
-      contains(github.event.pull_request.labels.*.name, 'ready'))}}
+      github.event_name == 'pull_request_target')}}
     runs-on: ubuntu-latest
+    concurrency:   # Concurrency configuration
+      group: ${{ github.workflow }}-${{ github.event.pull_request_target.number }}
     steps:
 
     - name: Install Dependencies
