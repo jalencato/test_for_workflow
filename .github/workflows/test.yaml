@@ -12,6 +12,10 @@ permissions:
   id-token: write
   contents: read
 
+concurrency:   # Concurrency configuration
+  group: ${{ github.workflow }}-${{ github.event.number || github.event.pull_request.head.ref }}
+  cancel-in-progress: true
+      
 jobs:
   hello:
     if: ${{ github.event_name == 'push' || 
@@ -20,9 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_CONTEXT: ${{ toJson(github) }}
-    concurrency:   # Concurrency configuration
-      group: ${{ github.workflow }}-${{ github.event.number || github.event.pull_request.head.ref }}
-      cancel-in-progress: true
     steps:
 
     - name: Install Dependencies
