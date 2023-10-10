@@ -19,7 +19,7 @@ jobs:
       github.event_name == 'pull_request_target')}}
     runs-on: ubuntu-latest
     concurrency:   # Concurrency configuration
-      group: ${{ github.workflow }}-${{ github.event.pull_request_target.number }}
+      group: ${{ github.workflow }}-${{ github.event.pull_request_target.number || github.ref }}
       cancel-in-progress: true
     steps:
 
