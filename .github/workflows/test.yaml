@@ -21,7 +21,7 @@ jobs:
     env:
       GITHUB_CONTEXT: ${{ toJson(github) }}
     concurrency:   # Concurrency configuration
-      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+      group: ${{ github.workflow }}-${{ github.event.number || github.event.pull_request.head.ref }}
       cancel-in-progress: true
     steps:
 
@@ -36,8 +36,6 @@ jobs:
       shell: bash
       run: |
         echo "$GITHUB_CONTEXT"
-        echo ${{ github.workflow }}
-        echo ${{ github.event.pull_request_target.number }}
         sleep 20
         echo ${{contains(github.event.pull_request.labels.*.name, 'ready')}}
         echo "Start submitting job - Push"
