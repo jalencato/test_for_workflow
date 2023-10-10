@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:   # Concurrency configuration
       group: ${{ github.workflow }}-${{ github.event.pull_request_target.number }}
+      cancel-in-progress: true
     steps:
 
     - name: Install Dependencies
@@ -28,10 +29,11 @@ jobs:
         python -m pip install --upgrade pip
         python3 -m pip install pytest
         pip install boto3
-
+        
     - name: Hello
       shell: bash
       run: |
+        sleep(20)
         echo ${{contains(github.event.pull_request.labels.*.name, 'ready')}}
         echo "Start submitting job - Push"
 
