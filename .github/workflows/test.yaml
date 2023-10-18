@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: end test
         run: |
-          echo "Ending Test 2"
+          echo "Ending Test 3"
           echo ${{(github.event.label.name != 'draft' && github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'ready'))}}
         shell: bash
 
